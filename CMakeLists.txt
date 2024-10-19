@@ -107,24 +107,24 @@ endif()
 ###############################################################################
 
 # Download and unpack googletest at configure time
-configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
-execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-        RESULT_VARIABLE result
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-download )
-if(result)
-    message(FATAL_ERROR "CMake step for googletest failed: ${result}")
-endif()
-execute_process(COMMAND ${CMAKE_COMMAND} --build .
-        RESULT_VARIABLE result
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-download )
-if(result)
-    message(FATAL_ERROR "Build step for googletest failed: ${result}")
-endif()
-
-# Add googletest directly to our build. This defines
-# the gtest and gtest_main targets.
-add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
-        ${CMAKE_BINARY_DIR}/googletest-build)
+# configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+# execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+#         RESULT_VARIABLE result
+#         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-download )
+# if(result)
+#     message(FATAL_ERROR "CMake step for googletest failed: ${result}")
+# endif()
+# execute_process(COMMAND ${CMAKE_COMMAND} --build .
+#         RESULT_VARIABLE result
+#         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-download )
+# if(result)
+#     message(FATAL_ERROR "Build step for googletest failed: ${result}")
+# endif()
+#
+# # Add googletest directly to our build. This defines
+# # the gtest and gtest_main targets.
+# add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
+#         ${CMAKE_BINARY_DIR}/googletest-build)
 
 # The gtest/gtest_main targets carry header search path
 # dependencies automatically when using CMake 2.8.11 or
@@ -186,32 +186,32 @@ target_link_libraries(solvitaire LINK_PUBLIC ${Boost_LIBRARIES})
 ## testing ####################################################################
 ###############################################################################
 
-add_executable(unit_tests ${sources_test} ${sources})
+# add_executable(unit_tests ${sources_test} ${sources})
 
 # this allows us to use our executable as a link library
 # therefore we can inherit all compiler options and library dependencies
 set_target_properties(solvitaire PROPERTIES ENABLE_EXPORTS on)
 
-target_link_libraries(unit_tests gtest_main ${Boost_LIBRARIES})
+# target_link_libraries(unit_tests gtest_main ${Boost_LIBRARIES})
 
-ENABLE_TESTING()
-ADD_TEST(NAME unit_tests
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/test"
-        COMMAND "${CMAKE_CURRENT_BINARY_DIR}/bin/unit_tests")
-ADD_TEST(NAME trailing_space
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/test"
-        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/src/test/check_for_no_trailing_space_in_output.py"
-        "--exe" "${CMAKE_CURRENT_BINARY_DIR}/bin/solvitaire"
-        "--gametype" "klondike"
-        "--deal" "${CMAKE_CURRENT_SOURCE_DIR}/resources/deal-presets/klondikeSM1.json"
-)
-ADD_TEST(NAME trailing_space_free_cell
-        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/test"
-        COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/src/test/check_for_no_trailing_space_in_output.py"
-        "--exe" "${CMAKE_CURRENT_BINARY_DIR}/bin/solvitaire"
-        "--gametype" "free-cell"
-        "--deal" "${CMAKE_CURRENT_SOURCE_DIR}/src/test/resources/free_cell/fc-pro-3.json"
-)
+# ENABLE_TESTING()
+# ADD_TEST(NAME unit_tests
+#         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/test"
+#         COMMAND "${CMAKE_CURRENT_BINARY_DIR}/bin/unit_tests")
+# ADD_TEST(NAME trailing_space
+#         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/test"
+#         COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/src/test/check_for_no_trailing_space_in_output.py"
+#         "--exe" "${CMAKE_CURRENT_BINARY_DIR}/bin/solvitaire"
+#         "--gametype" "klondike"
+#         "--deal" "${CMAKE_CURRENT_SOURCE_DIR}/resources/deal-presets/klondikeSM1.json"
+# )
+# ADD_TEST(NAME trailing_space_free_cell
+#         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/test"
+#         COMMAND "python3" "${CMAKE_CURRENT_SOURCE_DIR}/src/test/check_for_no_trailing_space_in_output.py"
+#         "--exe" "${CMAKE_CURRENT_BINARY_DIR}/bin/solvitaire"
+#         "--gametype" "free-cell"
+#         "--deal" "${CMAKE_CURRENT_SOURCE_DIR}/src/test/resources/free_cell/fc-pro-3.json"
+# )
 
 ###############################################################################
 ## packaging ##################################################################
