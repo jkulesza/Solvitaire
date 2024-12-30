@@ -1,9 +1,9 @@
 #!/bin/bash
 
-docker login
+# docker login
 
 # Downloads the image
-docker pull thecharlesblake/solvitaire:1.0
+# docker pull thecharlesblake/solvitaire:1.0
 
 # If the cmake-build-[debug/release] folders don't exist, copies pre-generated
 # versions from the docker image into the current directory (so new users
